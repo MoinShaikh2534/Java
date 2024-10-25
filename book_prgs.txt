@@ -1,0 +1,373 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+class Book {
+    int bookID;
+    String bookName;
+    String author;
+    String publisher;
+    int quantity;
+
+    public Book(int bookID, String bookName, String author, String publisher, int quantity) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [ID=" + bookID + ", Name=" + bookName + ", Author=" + author + ", Publisher=" + publisher + ", Quantity=" + quantity + "]";
+    }
+}
+
+public class QueueDemo {
+    public static void main(String[] args) {
+        Queue<Book> bookQueue = new LinkedList<>();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add a book");
+            System.out.println("2. Display size of Queue");
+            System.out.println("3. Display all books");
+            System.out.println("4. Remove a book by ID");
+            System.out.println("5. Display all books after removal");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Add a book
+                    System.out.print("Enter Book ID: ");
+                    int bookID = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    System.out.print("Enter Book Name: ");
+                    String bookName = sc.nextLine();
+                    System.out.print("Enter Author Name: ");
+                    String author = sc.nextLine();
+                    System.out.print("Enter Publisher Name: ");
+                    String publisher = sc.nextLine();
+                    System.out.print("Enter Quantity: ");
+                    int quantity = sc.nextInt();
+
+                    bookQueue.add(new Book(bookID, bookName, author, publisher, quantity));
+                    System.out.println("Book added successfully.");
+                    break;
+
+                case 2:
+                    // Display size of Queue
+                    System.out.println("Size of the Queue: " + bookQueue.size());
+                    break;
+
+                case 3:
+                    // Display all books
+                    System.out.println("\nAll books in the queue:");
+                    for (Book book : bookQueue) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 4:
+                    // Remove a book by ID
+                    System.out.print("Enter Book ID to remove: ");
+                    int removeID = sc.nextInt();
+                    boolean removed = false;
+
+                    // We need to create a temporary queue to hold the books we want to keep
+                    Queue<Book> tempQueue = new LinkedList<>();
+                    while (!bookQueue.isEmpty()) {
+                        Book currentBook = bookQueue.poll(); // Remove the head of the queue
+                        if (currentBook.bookID != removeID) {
+                            tempQueue.add(currentBook); // Keep the book if it doesn't match the remove ID
+                        } else {
+                            removed = true; // We found and removed the book
+                        }
+                    }
+                    bookQueue = tempQueue; // Replace the old queue with the new one
+
+                    if (removed) {
+                        System.out.println("Book removed successfully.");
+                    } else {
+                        System.out.println("Book not found.");
+                    }
+                    break;
+
+                case 5:
+                    // Display all books after removal
+                    System.out.println("\nBooks in the queue after removal:");
+                    for (Book book : bookQueue) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 6:
+                    // Exit the program
+                    System.out.println("Exiting program...");
+                    sc.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.LinkedList;
+import java.util.Scanner;
+
+class Book {
+    int bookID;
+    String bookName;
+    String author;
+    String publisher;
+    int quantity;
+
+    public Book(int bookID, String bookName, String author, String publisher, int quantity) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [ID=" + bookID + ", Name=" + bookName + ", Author=" + author + ", Publisher=" + publisher + ", Quantity=" + quantity + "]";
+    }
+}
+
+public class LinkedListDemo {
+    public static void main(String[] args) {
+        LinkedList<Book> bookList = new LinkedList<>();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add a book");
+            System.out.println("2. Display size of LinkedList");
+            System.out.println("3. Display all books");
+            System.out.println("4. Remove a book by ID");
+            System.out.println("5. Display all books after removal");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Add a book
+                    System.out.print("Enter Book ID: ");
+                    int bookID = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    System.out.print("Enter Book Name: ");
+                    String bookName = sc.nextLine();
+                    System.out.print("Enter Author Name: ");
+                    String author = sc.nextLine();
+                    System.out.print("Enter Publisher Name: ");
+                    String publisher = sc.nextLine();
+                    System.out.print("Enter Quantity: ");
+                    int quantity = sc.nextInt();
+
+                    bookList.add(new Book(bookID, bookName, author, publisher, quantity));
+                    System.out.println("Book added successfully.");
+                    break;
+
+                case 2:
+                    // Display size of LinkedList
+                    System.out.println("Size of the LinkedList: " + bookList.size());
+                    break;
+
+                case 3:
+                    // Display all books
+                    System.out.println("\nAll books in the list:");
+                    for (Book book : bookList) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 4:
+                    // Remove a book by ID
+                    System.out.print("Enter Book ID to remove: ");
+                    int removeID = sc.nextInt();
+                    boolean removed = bookList.removeIf(book -> book.bookID == removeID);
+                    if (removed) {
+                        System.out.println("Book removed successfully.");
+                    } else {
+                        System.out.println("Book not found.");
+                    }
+                    break;
+
+                case 5:
+                    // Display all books after removal
+                    System.out.println("\nBooks in the list after removal:");
+                    for (Book book : bookList) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 6:
+                    // Exit the program
+                    System.out.println("Exiting program...");
+                    sc.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+import java.util.Vector;
+
+class Book {
+    int bookID;
+    String bookName;
+    String author;
+    String publisher;
+    int quantity;
+
+    public Book(int bookID, String bookName, String author, String publisher, int quantity) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [ID=" + bookID + ", Name=" + bookName + ", Author=" + author + ", Publisher=" + publisher + ", Quantity=" + quantity + "]";
+    }
+}
+
+public class VectorDemo {
+    public static void main(String[] args) {
+        Vector<Book> bookVector = new Vector<>();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add a book");
+            System.out.println("2. Display size of Vector");
+            System.out.println("3. Display all books");
+            System.out.println("4. Remove a book by ID");
+            System.out.println("5. Display all books after removal");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Add a book
+                    System.out.print("Enter Book ID: ");
+                    int bookID = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    System.out.print("Enter Book Name: ");
+                    String bookName = sc.nextLine();
+                    System.out.print("Enter Author Name: ");
+                    String author = sc.nextLine();
+                    System.out.print("Enter Publisher Name: ");
+                    String publisher = sc.nextLine();
+                    System.out.print("Enter Quantity: ");
+                    int quantity = sc.nextInt();
+
+                    bookVector.add(new Book(bookID, bookName, author, publisher, quantity));
+                    System.out.println("Book added successfully.");
+                    break;
+
+                case 2:
+                    // Display size of Vector
+                    System.out.println("Size of the Vector: " + bookVector.size());
+                    break;
+
+                case 3:
+                    // Display all books
+                    System.out.println("\nAll books in the vector:");
+                    for (Book book : bookVector) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 4:
+                    // Remove a book by ID
+                    System.out.print("Enter Book ID to remove: ");
+                    int removeID = sc.nextInt();
+                    boolean removed = false;
+
+                    // Iterate over the Vector to find and remove the book
+                    for (int i = 0; i < bookVector.size(); i++) {
+                        if (bookVector.get(i).bookID == removeID) {
+                            bookVector.remove(i);
+                            removed = true;
+                            break;
+                        }
+                    }
+
+                    if (removed) {
+                        System.out.println("Book removed successfully.");
+                    } else {
+                        System.out.println("Book not found.");
+                    }
+                    break;
+
+                case 5:
+                    // Display all books after removal
+                    System.out.println("\nBooks in the vector after removal:");
+                    for (Book book : bookVector) {
+                        System.out.println(book);
+                    }
+                    break;
+
+                case 6:
+                    // Exit the program
+                    System.out.println("Exiting program...");
+                    sc.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
